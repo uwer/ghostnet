@@ -1,0 +1,14 @@
+"x"
+"(Intercept)",-17.1889248179149
+"length_m",0.0251532607320236
+"length_m_sq",-8.15040375995406e-05
+"Noisy_Twine_Size",-1.11168841570033
+"Mesh_Sizem",0.0023555736828496
+"net_constMono Single",13.4457543413268
+"net_constTwisted 13 Single",6.94043495131656
+"net_constTwisted 2 Double",0.596353723267427
+"net_constTwisted 2 Single",-0.776362950636368
+"net_constTwisted 3 Double",-0.609526703948983
+"net_constTwisted 3 Single",14.8510278554791
+"net_constTwisted 4 Single",17.7221876794104
+"net_constTwisted 5 Single",17.0776067866412
