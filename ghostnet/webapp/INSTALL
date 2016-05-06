@@ -1,0 +1,37 @@
+# get tomcat if necessary 
+#wget http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.69/bin/apache-tomcat-7.0.69.tar.gz
+
+# get rjava
+wget https://cran.r-project.org/src/contrib/rJava_0.9-8.tar.gz
+
+#install  liblzma-dev
+apt-get install liblzma-dev 
+
+#if R is behind module load
+
+module load R
+
+
+# install rjava into R
+R CMD INSTALL rJava_0.9-8.tar.gz
+
+# configure
+R CMD javareconf
+
+# NOTE the absolute path to R for below
+
+
+# depending on R path, add(create) the R path to tomcat setenv.sh in <catalina_home>/bin 
+#with
+LD_LIBRARY_PATH=<R install>/R/library/rJava/jri/:<Rinstall>/R/lib/
+export LD_LIBRARY_PATH
+R_HOME=<R install>/R
+export R_HOME
+
+i# for module based default version 3.1.1 this would be 
+LD_LIBRARY_PATH= /apps/R/3.1.1/lib/R/library/rJava/jri/:/apps/R/3.1.1/lib
+R_HOME=/apps/R/3.1.1/
+
+# copy <R install>/R/library/rJava/jri/JRI.jar int <cataline base>/lib
+# from 
+cp /apps/R/3.1.1/lib/R/library/rJava/jri/JRI.jar <cataline base>/lib/
