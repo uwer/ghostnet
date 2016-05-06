@@ -29,7 +29,7 @@ public class TestRServlet extends HttpServlet  {
 	  public void init(ServletConfig config) throws ServletException {
 
 	    re = RFactory.getInstance();
-
+	    
 	    FSHOME = config.getInitParameter("FSHOME");
 	    System.out.println("FSHOME:" + FSHOME);
 	  }
@@ -47,7 +47,7 @@ public class TestRServlet extends HttpServlet  {
 			System.out.println("Loading REngine...");
 			Rengine engine = Rengine.getMainEngine();
 			if(engine == null)
-			    engine = new Rengine(new String[] {"--vanilla"}, false, null);
+			    engine = new Rengine(new String[] {"--vanilla","--no-environ"}, false, null);
 			
 			System.out.println("Rengine created, waiting for R");
 			
