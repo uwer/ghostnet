@@ -68,7 +68,6 @@ public class GhostNetEvalServlet extends HttpServlet  {
 
 	    
 	    
-	    
 	    // send to JSP
 	    // set the result fragment to be displayed in the forward request
 	    req.setAttribute("GN1_result", "");
