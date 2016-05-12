@@ -36,24 +36,75 @@
       <param-value>${catalina.base}/webapps/ghostnet</param-value>
     </init-param>
     <init-param>
-      <param-name>R_SCRIPT</param-name>
-      <param-value>/rbase/scripts/eval_gntype.r</param-value>
+      <param-name>R_FUNC_SCRIPT</param-name>
+      <param-value>/rbase/scripts/load_functions-v0.2.r</param-value>
+    </init-param>
+    <init-param>
+      <param-name>R_DATA_SCRIPT</param-name>
+      <param-value>/rbase/scripts/load_bdata.r</param-value>
     </init-param>
     <init-param>
       <param-name>R_DATA_BASE</param-name>
       <param-value>/rbase/data/gn1</param-value>
     </init-param>
-        <init-param>
+    <init-param>
       <param-name>WS_BASE</param-name>
-      <param-value>${catalina.base}/webapps/ghostnet/tmp</param-value>
+      <param-value>/tmp</param-value>
     </init-param>
-    
+    <init-param>
+      <param-name>R_FUNCTION</param-name>
+      <param-value>GetClusterPredictions</param-value>
+    </init-param>
+    <init-param>
+      <param-name>JSP_TARGET_BASE</param-name>
+      <param-value>fragments</param-value>
+    </init-param>
   </servlet>
+ <servlet>
+    <servlet-name>TestR</servlet-name>
+    <servlet-class>au.csiro.mdebris.test.TestRServlet</servlet-class>
+    <init-param>
+      <param-name>FSHOME</param-name>
+      <param-value>${catalina.base}/webapps/ghostnet</param-value>
+    </init-param>
+  </servlet>
+
+   <servlet>
+   <servlet-name>TestEnv</servlet-name>
+    <servlet-class>au.csiro.mdebris.test.TestEnviron</servlet-class>
+    <init-param>
+      <param-name>FSHOME</param-name>
+      <param-value>${catalina.base}/webapps/ghostnet</param-value>
+    </init-param>
+  </servlet>
+
+
+   <servlet>
+   <servlet-name>TestRenjin</servlet-name>
+    <servlet-class>au.csiro.mdebris.test.TestRenjinServlet</servlet-class>
+    <init-param>
+      <param-name>FSHOME</param-name>
+      <param-value>${catalina.base}/webapps/ghostnet</param-value>
+    </init-param>
+  </servlet>
+
 
   <!-- Define the Manager Servlet Mapping -->
   <servlet-mapping>
     <servlet-name>GhostNetEval</servlet-name>
       <url-pattern>/ghostneteval</url-pattern>
+  </servlet-mapping>
+ <servlet-mapping>
+    <servlet-name>TestR</servlet-name>
+      <url-pattern>/testr</url-pattern>
+  </servlet-mapping>
+ <servlet-mapping>
+    <servlet-name>TestEnv</servlet-name>
+      <url-pattern>/teste</url-pattern>
+  </servlet-mapping>
+ <servlet-mapping>
+    <servlet-name>TestRenjin</servlet-name>
+      <url-pattern>/testrenjin</url-pattern>
   </servlet-mapping>
 
 

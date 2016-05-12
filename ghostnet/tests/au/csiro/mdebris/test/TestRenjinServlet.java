@@ -28,6 +28,20 @@ public class TestRenjinServlet extends RenjinServletBase
 		//System.out.println("FSHOME:" + FSHOME);
 	}
 	
+	protected void intialiseEngine(ScriptEngine engine)
+	{
+		if(engine == null) 
+		  {
+			  throw new RuntimeException("Renjin Script Engine not found in the classpath.");
+		  }else
+		  {
+			  try {
+				engine.eval("xtest <- 0");
+			} catch (ScriptException e) {
+				throw new RuntimeException(e);
+			}
+		  }
+	}
 	  
 	  public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
 	  {
@@ -52,11 +66,16 @@ public class TestRenjinServlet extends RenjinServletBase
 			}
 			
 			StringVector result;
+			Object res1 = null;
+			
 			try {
+				res1 = engine.eval("xtest");
 				result = (StringVector)engine.eval(
 						"df <- data.frame(x=1:10, y=(1:10)+rnorm(sd, n=10));" +
 						"x <- lm(y ~ x, df);" +
 						"rjson::toJSON(x$coefficients)");
+				
+				engine.eval("xtest <- xtest +1");
 			} catch (ScriptException e) {
 				throw new ServletException(e);
 			}
@@ -65,9 +84,11 @@ public class TestRenjinServlet extends RenjinServletBase
 			
 		  
 		  
-		  res.setContentType("application/json");
+		  //res.setContentType("application/json");
 		  writer.println(result.getElementAsString(0));
-			  
+			 
+		  writer.println(String.valueOf(res1));
+		  
 		  }
 		  
 		  writer.println("<br></body></HTML>");

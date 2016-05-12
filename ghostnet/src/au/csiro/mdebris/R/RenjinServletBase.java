@@ -23,13 +23,24 @@ public abstract class RenjinServletBase extends HttpServlet
 			RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
 			engine = factory.getScriptEngine();
 			ENGINE.set(engine);
+			intialiseEngine(engine);
 		}
 		return engine;
 	}
 	
-	
-	public void destroy() {
+	/**
+	 * initialise additional, load anything which should only created once at creation of teh engine 
+	 * @param engine
+	 */
+	protected void intialiseEngine(ScriptEngine engine)
+	{
 		
+	}
+	
+	public void destroy() 
+	{
+		
+		ENGINE.remove();
 	}
 	
     protected void handleException(HttpServletResponse resp, Exception e) throws IOException, ServletException {

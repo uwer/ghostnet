@@ -16,15 +16,48 @@
 <link rel="stylesheet" href="assets/css/style.css?q=new" type="text/css">
 <!--[if lt IE 8]><link rel="stylesheet" href="assets/css/style.ie7.css" type="text/css"><![endif]-->
 
-<script src="assets/js/libs/modernizr-2.6.2.min.js"></script>
-<script src="assets/js/libs/respond.min.js"></script>
+<script src="assets/libs/modernizr-2.6.2.min.js"></script>
+<script src="assets/libs/respond.min.js"></script>
 
 <link rel="shortcut icon" href="assets/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" href="assets/ico/favicon-152.png">
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="msapplication-TileImage" content="assets/ico/favicon-144.png">
 
-<script src="assets/js/libs/jquery-1.10.2.min.js"></script>
+<script src="assets/libs/jquery-1.10.2.min.js"></script>
+
+
+
+<script>
+
+$(document).ready(function(){
+    /* The following code is executed once the DOM is loaded */
+
+$("#btnSubmit").click(function(){
+	
+	/* show an intermediate and remove previous result */
+	$("#bingo").html("Processing ...");
+
+    $.ajax({
+         type: 'POST',
+         url: "/ghostnet/ghostneteval",
+         data: $('#netTypeForm').serialize(),
+         success: function(response) {
+                 /* replace with showing response */
+           $("#bingo").html(response);
+
+         },
+        error: function() {
+            alert("There was an error submitting the request");
+        }
+     });
+});
+});
+</script>
+
+<script src="assets/libs/plugins.js"></script>
+
+
 
 </head>
 
@@ -43,18 +76,35 @@
 <li><a href="https://www.facebook.com/pages/GhostNets-Australia/107918622642323" title="" class="tip" data-placement="bottom" data-original-title="Facebook"><img class="hisrc" src="assets/img/icon-facebook.gif" width="20" height="20" data-1x="/assets/img/icon-facebook.gif" data-2x="assets/img/icon-facebook-2x.gif" alt="Facebook"></a></li>
 <li><a href="/contact-us/" title="" class="tip" data-placement="bottom" data-original-title="Contact Us"><img class="hisrc" src="assets/img/icon-email.gif" width="29" height="20" data-1x="/assets/img/icon-email.gif" data-2x="/assets/img/icon-email-2x.gif" alt="email"></a></li>
 </ul>
-
+<!--  
 <form action="/search/" accept-charset="UTF-8" method="post">
 <fieldset>
 <input type="text" class="default-value" id="f_search" name="f_search" value="Search">
 </fieldset>
 </form>
+-->
 </div>
 
 </div>
 
 </header>
 
+
+<!-- Link trigger modal -->
+<div class="modal fade" id="netTypeModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">A possible type of net</h4>
+      </div>
+      <div class="modal-body">
+        <div id="bingo"></div>
+
+      </div>
+    </div>
+   </div>
+</div>
 
 
 <!-- section id="main" -->
@@ -72,24 +122,25 @@
 <p>Nets are divided into sections governed by mesh sizes. This is in broad categories according to how many fingers or hands can fit comfortably in the opening of the mesh e.g. the 1 Finger section is for all nets with a mesh size ranging between 25-41 mm. It is not a unique way of measuring the mesh size for, prior to the creation of machines, fishers used this method when making their nets.</p>
 <p>If you find a net which does not match any of the IDs then it is a new net sample. Please contact GhostNets Australia: <a href="mailto:info@ghostnets.com.au">info@ghostnets.com.au</a> to find out where to send a sample of the ghost net so it can be included in new editions.</p>
 
-<form class="form-horizontal validate" action="/ghostneteval" accept-charset="UTF-8" method="post" novalidate="novalidate">
+<form class="form-horizontal validate" id="netTypeForm" action="/ghostnet/ghostneteval" accept-charset="UTF-8" method="post" novalidate="novalidate">
 <fieldset>
 <legend>Choose search criteria</legend>
 <div class="control-group">
 <label class="control-label" for="f_mesh_id">Mesh size</label>
 <div class="controls">
 <select id="f_mesh_id" name="f_mesh_id" class="input-large valid"><option value="0">Any</option>
-<option value="1">Less than one finger</option>
-<option value="2">As big as one finger</option>
-<option value="3">As big as two fingers</option>
-<option value="4">As big as three fingers</option>
-<option value="5">As big as four fingers</option>
-<option value="6">As big as a fist</option>
-<option value="7">As big as a clasped fist</option>
-<option value="8">As big as an open hand</option>
-<option value="9">Larger than an open hand</option>
+<option value="14">Less than one finger (14 mm)</option>
+<option value="20">As big as one finger (20 mm)</option>
+<option value="40">As big as two fingers (40 mm)</option>
+<option value="60">As big as three fingers (60 mm)</option>
+<option value="80">As big as four fingers (80 mm)</option>
+<option value="95">As big as a fist (95 mm)</option>
+<option value="140">As big as a clasped fist (140 mm)</option>
+<option value="180">As big as an open hand (180 mm)</option>
+<option value="240">Larger than an open hand (240 mm)</option>
 </select></div>
 </div>
+
 <div class="control-group">
 <label class="control-label" for="f_knots_id">Knots</label>
 <div class="controls">
@@ -103,23 +154,68 @@
 <label class="control-label" for="f_sdtwine_id">Twine</label>
 <div class="controls">
 <select id="f_sdtwine_id" name="f_sdtwine_id" class="input-large valid"><option value="0">Any</option>
-<option value="1">Single</option>
-<option value="2">Double</option>
+<option value="Single">Single</option>
+<option value="Double">Double</option>
 </select><span class="help help-block"><img src="assets/img/netid-twine.gif" width="260" height="150" alt="Twine types"><br>Single (left), double (right)</span>
 </div>
 </div>
+
 <div class="control-group">
-<label class="control-label" for="f_tbmtwine_id"></label>
+<label class="control-label" for="f_sizetwine_id">Twine size</label>
+<div class="controls">
+<select id="f_sizetwine_id" name="f_sizetwine_id" class="input-large valid"><option value="0">Any</option>
+<option value="0.5">Very thin, less than a 1 milimetre</option>
+<option value="1">Thin, 1 millimetre </option>
+<option value="2">Substantial, 2 millimetres</option>
+<option value="3">Thick, 3 millimetres</option>
+</select></div>
+</div>
+
+
+<div class="control-group">
+<label class="control-label" for="f_strandstwine_id">Twine size</label>
+<div class="controls">
+<select id="f_strandstwine_id" name="f_strandstwine_id" class="input-large valid"><option value="0">Any</option>
+<option value="0">Unstranded</option>
+<option value="2">2 Strands</option>
+<option value="3">3 Strands</option>
+<option value="4">4 Strands</option>
+<option value="5">5 Strands</option>
+<option value="13">13 Strands</option>
+</select></div>
+</div>
+
+
+<div class="control-group">
+<label class="control-label" for="f_tbmtwine_id">Type</label>
 <div class="controls">
 <select id="f_tbmtwine_id" name="f_tbmtwine_id" class="input-large"><option value="0">Any</option>
-<option value="1">Twisted</option>
-<option value="2">Braided</option>
-<option value="3">Monofilament</option>
+<option value="Twisted">Twisted</option>
+<option value="Braided">Braided</option>
+<option value="Mono">Monofilament</option>
 </select><span class="help help-block"><img src="assets/img/netid-twineconstruction.gif" width="260" height="150" alt="Twine construction types"><br>Twisted (top), braided (middle), monofilament (bottom)</span>
 </div>
 </div>
+
+<div class="control-group">
+<label class="control-label" for="f_colour_id">Colour</label>
+<div class="controls">
+<select id="f_colour_id" name="f_colour_id" class="input-large valid"><option value="0">Any</option>
+<option value="GREY">Grey</option>
+<option value="BLUE">Blue</option>
+<option value="WHITE">White</option>
+<option value="GREEN">Green</option>
+<option value="BROWN">Brown</option>
+<option value="RED">Red</option>
+<option value="BLACK">Black</option>
+<option value="CLEAR">Clear</option>
+<option value="ORANGE">Orange</option>
+<option value="YELLOW">Yellow</option>
+</select></div>
+</div>
 <div class="form-actions">
-<input type="submit" class="btn btn-primary" value="Search">
+<!--   <input type="submit" class="btn btn-primary" value="Search"> -->
+<button type="button" id="btnSubmit" class="btn btn-info" data-toggle="modal" data-target="netTypeModal">Search</button>
 </div>
 </fieldset>
 </form>
@@ -129,7 +225,7 @@
 <!-- /section -->
 
 
-</article>
+
 
 </body>
 
