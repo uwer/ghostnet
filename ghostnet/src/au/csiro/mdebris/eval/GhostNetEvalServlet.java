@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.renjin.eval.EvalException;
 
 import au.csiro.mdebris.R.RenjinServletBase;
 
@@ -166,7 +167,7 @@ public class GhostNetEvalServlet extends RenjinServletBase
                 // execute the calculation with tmp files going into the tmp ws
                 
                 // the result is a R array
-                // test existance of function
+                // test existence of function
                 /* v-0.2 */
                 if (f_mesh_id != null)
                 {
@@ -209,7 +210,7 @@ public class GhostNetEvalServlet extends RenjinServletBase
                 double probs = x.getElementAsDouble(1+result);
                 
                 //System.out.println("R results "+probsAcross);
-                System.out.println("R index "+result + " total"+probsTotal);
+                System.out.println("R index: "+result + " total: "+probsTotal);
                 
                 if (probs > 0.0001)
                 {	
@@ -275,7 +276,7 @@ public class GhostNetEvalServlet extends RenjinServletBase
                  
                  */
                 f.delete();
-            } catch (ScriptException e) {
+            } catch (ScriptException | EvalException e) {
                 handleException(res, e);
                 return;
             } 

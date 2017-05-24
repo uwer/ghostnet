@@ -27,7 +27,6 @@
     A scriptable management web application for the Tomcat Web Server;
     Manager lets you view, load/unload/etc particular web applications.
   </description>
-
   <servlet>
     <servlet-name>GhostNetEval</servlet-name>
     <servlet-class>au.csiro.mdebris.eval.GhostNetEvalServlet</servlet-class>

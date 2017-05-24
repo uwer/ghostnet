@@ -29,7 +29,7 @@ TypeProbs <- vector(length = 14)
 
  #For the 14 possible types, get the density for each based on the two continuous variables and then normalize to a probability
  SizeProbs <- vector(length = 14)
- for(j in 1:14){
+ for(j in 1:14) {
   SizeProbs[j] <- dmvnorm(c(MeshSize,TwineSize), mean = ContinuousMeans[j,], sigma = ContinuousSigmas[,,j])
  }
 
